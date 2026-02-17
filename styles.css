@@ -1,0 +1,292 @@
+/* Global Reset */
+:root {
+    --bg-color: #0B0E14; /* Deep Navy/Charcoal */
+    --text-primary: #ECEFF4;
+    --text-secondary: #94A3B8;
+    --accent-teal: #00E5FF;
+    --accent-purple: #9D4EDD;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --card-hover-bg: rgba(255, 255, 255, 0.08);
+    --font-main: 'Inter', sans-serif;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    position: relative;
+    /* Subtle moving gradient background */
+    background: radial-gradient(circle at 15% 50%, rgba(26, 35, 126, 0.2), transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(76, 29, 149, 0.15), transparent 50%);
+    background-size: 150% 150%;
+    animation: bgMove 20s ease infinite;
+}
+
+@keyframes bgMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Particle Container */
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* Layout */
+.container {
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+    text-align: center;
+    z-index: 1;
+}
+
+/* Typography & Header */
+.header {
+    margin-bottom: 3rem;
+}
+
+.headline {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.wave {
+    display: inline-block;
+    animation: wave 2.5s infinite;
+    transform-origin: 70% 70%;
+}
+
+@keyframes wave {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(14deg); }
+    20% { transform: rotate(-8deg); }
+    30% { transform: rotate(14deg); }
+    40% { transform: rotate(-4deg); }
+    50% { transform: rotate(10deg); }
+    60% { transform: rotate(0deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.subheadline-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.subheadline {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    max-width: 600px;
+}
+
+.verified-badge {
+    color: var(--accent-teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 3s infinite;
+}
+
+@keyframes pulse {
+    0% { filter: drop-shadow(0 0 0 rgba(0, 229, 255, 0)); }
+    50% { filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.4)); }
+    100% { filter: drop-shadow(0 0 0 rgba(0, 229, 255, 0)); }
+}
+
+.small-text {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    opacity: 0.7;
+    margin-top: 0.5rem;
+}
+
+/* Grid & Cards */
+.grid-buttons {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    width: 100%;
+}
+
+@media (min-width: 640px) {
+    .grid-buttons {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    background: var(--card-hover-bg);
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Ripple effect on click/hover - simulated with pseudo-element */
+.card::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    transition: opacity 0.5s, transform 0.5s;
+    pointer-events: none;
+}
+
+.card:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .icon-wrapper {
+    transform: rotate(-10deg) scale(1.1);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.whatsapp:hover .icon-wrapper { color: #25D366; }
+.discord:hover .icon-wrapper { color: #5865F2; }
+.gmail:hover .icon-wrapper { color: #EA4335; }
+.telegram:hover .icon-wrapper { color: #0088cc; }
+
+.text-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.platform-name {
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.descriptor {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.arrow-icon {
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+    color: var(--text-secondary);
+}
+
+.card:hover .arrow-icon {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--text-primary);
+}
+
+/* Footer */
+.footer {
+    margin-top: 3rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    opacity: 0.6;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 1.5rem;
+    width: 100%;
+    text-align: center;
+}
+
+/* Entrance Animations */
+.fade-in-up {
+    opacity: 0;
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.5s; }
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+    .headline {
+        font-size: 2rem;
+    }
+    .subheadline {
+        font-size: 1rem;
+    }
+    .container {
+        padding: 1.5rem;
+    }
+    .grid-buttons {
+        gap: 1rem;
+    }
+    .card {
+        padding: 1.25rem;
+    }
+}
