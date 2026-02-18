@@ -32,11 +32,66 @@ body {
     justify-content: center;
     overflow-x: hidden;
     position: relative;
-    /* Deep charcoal (almost black) gradient */
-    background: radial-gradient(circle at 60% -20%, #1a1f2e 0%, #0B0E14 60%);
+    /* Aurora Background Base */
+    background: #0B0E14;
 }
 
-/* Particle Container */
+/* Animated Aurora Background */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    /* Deep charcoal base + moving aurora blobs */
+    background:
+        radial-gradient(circle at 15% 50%, rgba(59, 227, 255, 0.08), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(157, 78, 221, 0.08), transparent 25%),
+        linear-gradient(125deg, #0B0E14 0%, #1a1f2e 40%, #0B0E14 100%);
+    background-size: 200% 200%;
+    animation: auroraMove 15s ease infinite alternate;
+}
+
+/* Additional drifting light blobs */
+body::after {
+    content: "";
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: -2;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(59, 227, 255, 0.06), transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(157, 78, 221, 0.05), transparent 30%);
+    background-size: 100% 100%;
+    animation: driftRotate 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes auroraMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes driftRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Particle Container (Keep subtle or remove if too busy - setting lower opacity to blend) */
 #particles-js {
     position: fixed;
     top: 0;
@@ -44,8 +99,8 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: 0.2;
-    /* Very subtle */
+    opacity: 0.15;
+    /* Reduced opacity to let aurora shine */
     pointer-events: none;
 }
 
